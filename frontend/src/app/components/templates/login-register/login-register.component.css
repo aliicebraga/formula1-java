@@ -1,0 +1,38 @@
+.loginBackground {
+  background-color: rgb(228, 228, 228);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 92vh;
+}
+
+.loginBackground section {
+  width: 60vw;
+  height: 50vh;
+  /* background-color: rgba(236, 109, 6, 0.712); */
+  background-color: black;
+  color: aliceblue;
+  border-radius: 36px 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* .cardForm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
+/* .cardForm {
+  width: 30vw;
+  height: 40vh;
+  background-color: rgb(255, 150, 127);
+  border-radius: 0 24px;
+} */
+
+.valid {
+  border: rgb(153, 255, 127);
+}

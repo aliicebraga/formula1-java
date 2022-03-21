@@ -1,0 +1,180 @@
+<nav class="navbar navbar-expand-md navBlack">
+  <div class="container-md">
+    <a class="navbar-brand ms-sm-3 navBrandFont" href="#"
+      ><img
+        src="../../../../assets/logo/logo-corte.png"
+        alt="Formula 1"
+        class="logo"
+    /></a>
+    <button
+      class="navbar-toggler me-sm-3"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarTogglerDemo03"
+      aria-controls="navbarTogglerDemo03"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <!-- <span class="navbar-toggler-icon navFont"></span> -->
+      <img
+        src="../../../../assets/logo/logoToggler3.png"
+        alt=""
+        class="logoToggler"
+      />
+      <!-- <div class="d-flex flex-column">
+        <i class="fas fa-minus iconFont"></i>
+        <i class="fal fa-ellipsis-h-alt iconFont"></i>
+        <i class="fal fa-car-side iconFontCar"></i>
+        <i class="fal fa-ellipsis-h-alt iconFont"></i>
+        <i class="fas fa-minus iconFont"></i>
+      </div> -->
+    </button>
+    <div
+      class="collapse navbar-collapse d-md-flex flex-md-row-reverse"
+      id="navbarTogglerDemo03"
+    >
+      <ul class="navbar-nav ml-auto mb-2 mb-md-0">
+        <li class="nav-item">
+          <a class="nav-link navFont" routerLink="/home">Home</a>
+        </li>
+
+        <li class="dropdown nav-item">
+          <a
+            class="nav-link dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton1"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Paddock
+          </a>
+          <ul
+            class="dropdown-menu dropdown-menu-dark"
+            aria-labelledby="dropdownMenuButton1"
+          >
+            <li class="nav-item">
+              <a class="dropdown-item" routerLink="/team/add">New team</a>
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+            <li class="nav-item">
+              <a class="dropdown-item" routerLink="/teams">All teams</a>
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+            <li *ngFor="let team of teams">
+              <a class="dropdown-item" routerLink="/team/{{ team.idTeam }}">{{
+                team.teamName
+              }}</a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="dropdown nav-item">
+          <a
+            class="nav-link dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton1"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Team Leaders
+          </a>
+          <ul
+            class="dropdown-menu dropdown-menu-dark"
+            aria-labelledby="dropdownMenuButton1"
+          >
+            <li class="nav-item">
+              <a class="dropdown-item" routerLink="/teamLeader/add"
+                >New team leader</a
+              >
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+            <li class="nav-item">
+              <a class="dropdown-item" routerLink="/teamLeaders"
+                >All team leaders</a
+              >
+            </li>
+          </ul>
+        </li>
+
+        <li class="dropdown nav-item">
+          <a
+            class="nav-link dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton1"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Employees
+          </a>
+          <ul
+            class="dropdown-menu dropdown-menu-dark"
+            aria-labelledby="dropdownMenuButton1"
+          >
+            <li class="nav-item">
+              <a class="dropdown-item" routerLink="/employee/add"
+                >New employee</a
+              >
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+            <li class="nav-item">
+              <a class="dropdown-item" routerLink="/employees">All employees</a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="dropdown nav-item">
+          <a
+            class="nav-link dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton1"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Roles
+          </a>
+          <ul
+            class="dropdown-menu dropdown-menu-dark"
+            aria-labelledby="dropdownMenuButton1"
+          >
+            <li class="nav-item">
+              <a class="dropdown-item" routerLink="/role/add">New role</a>
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+            <li class="nav-item">
+              <a class="dropdown-item" routerLink="/roles">All roles</a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="dropdown nav-item">
+          <a
+            class="nav-link dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton1"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Penalties
+          </a>
+          <ul
+            class="dropdown-menu dropdown-menu-dark"
+            aria-labelledby="dropdownMenuButton1"
+          >
+            <li class="nav-item">
+              <a class="dropdown-item" routerLink="/penalty/add">New penalty</a>
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+            <li class="nav-item">
+              <a class="dropdown-item" routerLink="/penalties">All penalty</a>
+            </li>
+          </ul>
+        </li>
+
+        <!-- <li class="nav-item">
+          <a class="nav-link navFont" routerLink="/login">Login</a>
+        </li> -->
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="bgFlag"></div>

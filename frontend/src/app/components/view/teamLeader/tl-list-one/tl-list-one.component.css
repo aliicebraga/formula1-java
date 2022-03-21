@@ -1,0 +1,136 @@
+.container {
+  min-height: 77vh;
+}
+
+.teamLeaderTitle {
+  text-align: start;
+  margin: 2.5rem 0;
+  padding: 2rem;
+  border-top: 10px groove var(--team-leader-title-border);
+  border-right: 10px groove var(--team-leader-title-border);
+  border-radius: 0 25px;
+}
+
+.actionIcons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.actionIcons i {
+  font-size: 1.5rem;
+}
+
+i {
+  cursor: pointer;
+}
+
+i:hover {
+  color: #aaaaaa;
+}
+.firstCard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+.secondCard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.teamCard {
+  max-width: 1000px;
+  min-width: 200px;
+  min-height: 170px;
+  max-height: 180px;
+  border: 1px solid none;
+  margin: 3rem;
+  border-radius: 20px;
+  padding: 1.8rem;
+
+  background-color: var(--team-base-hover);
+  box-shadow: 10px 11px 24px 1px rgba(0, 0, 0, 0.37);
+  -webkit-box-shadow: 10px 11px 24px 1px rgba(0, 0, 0, 0.37);
+  -moz-box-shadow: 10px 11px 24px 1px rgba(0, 0, 0, 0.37);
+  transition: all 0.2s ease-in-out;
+}
+
+.teamCard:hover {
+  background-color: var(--team-base);
+  transform: scale(1.02);
+}
+
+.titleTeam {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.iconsTeam {
+  width: 20%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.iconsTeam i {
+  font-size: 1.2rem;
+}
+
+.content {
+  margin-top: 0.7rem;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.titleNoTeam {
+  text-align: center;
+}
+
+.contentNoTeam {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  margin: 2rem;
+}
+
+.contentNoTeam i {
+  align-self: baseline;
+  font-size: 1.7rem;
+}
+.showMinWidth {
+  display: none;
+}
+
+.imgTeam {
+  width: 10%;
+}
+.imgLeader {
+  width: 20%;
+}
+
+@media screen and (max-width: 750px) {
+  .imgTeam {
+    width: 25%;
+  }
+  .imgLeader {
+    width: 40%;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .iconsTeam {
+    display: none;
+  }
+  .actionIcons {
+    font-size: 1rem;
+  }
+
+  .showMinWidth {
+    align-self: start;
+    display: block;
+  }
+}

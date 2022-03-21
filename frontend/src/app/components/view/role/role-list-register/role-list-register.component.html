@@ -1,0 +1,139 @@
+<div class="container">
+  <form
+    #registerForm="ngForm"
+    (ngSubmit)="registerForm.form.valid && onSubmit(modal)"
+    novalidate
+  >
+    <h2 class="text-center">
+      <i
+        class="far fa-chevron-circle-left"
+        (click)="return()"
+        ngbPopover="return"
+        [openDelay]="100"
+        [closeDelay]="200"
+        triggers="mouseenter:mouseleave"
+      ></i>
+      {{ tituloPage }}
+    </h2>
+
+    <div class="form-group">
+      <label
+        >Role name
+        <input
+          type="text"
+          class="form-control"
+          name="roleEmployee.roleName"
+          [(ngModel)]="roleEmployee.roleName"
+          #roleName="ngModel"
+          minlength="4"
+          required
+          [class.is-invalid]="
+            (roleName.touched || roleName.dirty) &&
+            (roleName.errors?.['required'] || roleName.errors?.['minlength'])
+
+          "
+          [class.is-valid]="roleName.valid"
+          (blur)="updateProgressBar(this, 20)"
+        />
+      </label>
+      <p class="form-text">Must have at least 4 characters</p>
+    </div>
+
+    <div class="form-group">
+      <label
+        >Role Department
+        <input
+          type="text"
+          class="form-control"
+          name="roleEmployee.roleDepartment"
+          [(ngModel)]="roleEmployee.roleDepartment"
+          #roleDepartment="ngModel"
+          minlength="4"
+          appOnlyLetters
+          required
+          [class.is-invalid]="
+            (roleDepartment.touched || roleDepartment.dirty) &&
+            (roleDepartment.errors?.['required'] || roleDepartment.errors?.['minlength'] || roleDepartment.errors?.['notAllLetters'])
+
+          "
+          [class.is-valid]="roleDepartment.valid"
+        />
+      </label>
+      <p class="form-text">Must have at least 4 characters</p>
+    </div>
+
+    <div class="form-group">
+      <label
+        >Role assignment
+        <input
+          type="text"
+          class="form-control"
+          name="roleEmployee.roleAssignment"
+          [(ngModel)]="roleEmployee.roleAssignment"
+          #roleAssignment="ngModel"
+          minlength="4"
+          required
+          [class.is-invalid]="
+            (roleAssignment.touched || roleAssignment.dirty) &&
+            (roleAssignment.errors?.['required'] || roleAssignment.errors?.['minlength'])
+
+          "
+          [class.is-valid]="roleAssignment.valid"
+          (blur)="updateProgressBar(this, 20)"
+        />
+      </label>
+      <p class="form-text">Must have at least 4 characters</p>
+    </div>
+
+    <div class="btns">
+      <button class="btn btn-light" type="reset" routerLink="/roles">
+        Cancel
+      </button>
+      <button
+        class="btn btn-dark"
+        type="submit"
+        [disabled]="clicked"
+        ngbPopover="this button will work only once, after the fields are valid"
+        [openDelay]="100"
+        [closeDelay]="600"
+        triggers="mouseenter:mouseleave"
+      >
+        {{ tituloButton }}
+      </button>
+    </div>
+    <!-- <p>
+      <ngb-progressbar
+        type="secondary"
+        class="mt-2"
+        [value]="valuePB"
+      ></ngb-progressbar>
+    </p> -->
+  </form>
+</div>
+
+<ng-template #modal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">{{ tituloModal }}</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <p>{{ mensagemModal }}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.dismiss()">
+      Ok
+    </button>
+    <!-- <button
+      type="button"
+      class="btn btn-light"
+      (click)="openModal(modal); modal.dismiss()"
+    >
+      Sim
+    </button> -->
+  </div>
+</ng-template>

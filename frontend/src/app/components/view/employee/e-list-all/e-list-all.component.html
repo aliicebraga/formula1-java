@@ -1,0 +1,373 @@
+<div class="container">
+  <div *ngIf="employees.length != 0; else noEmployee">
+    <div class="title employeeTitle">
+      <h1 class="">
+        <i
+          class="far fa-chevron-circle-left"
+          (click)="return()"
+          ngbPopover="return"
+          [openDelay]="100"
+          [closeDelay]="200"
+          triggers="mouseenter:mouseleave"
+        ></i>
+        F1 Employees
+      </h1>
+      <span>Here you can find more information about the employees.</span>
+      <i
+        class="far fa-plus-circle"
+        routerLink="/employee/add"
+        ngbPopover="new employee"
+        [openDelay]="100"
+        [closeDelay]="200"
+        triggers="mouseenter:mouseleave"
+      ></i>
+    </div>
+
+    <div class="row row-cols-1 row-cols-lg-3 row-cols-md-2 g-5">
+      <div class="col" *ngFor="let employee of employees">
+        <div class="card h-100 cardEmployee">
+          <div
+            class="d-flex justify-content-center align-items-center flex-column"
+          >
+            <img
+              src="{{ employee.empPhoto }}"
+              class="card-img-top img-fluid"
+              alt="..."
+              style="width: 60%"
+              *ngIf="employee.empPhoto != null; else noPhoto"
+            />
+            <ng-template #noPhoto>
+              <img
+                src="../../../../../assets/img/iconEmployee.png"
+                class="card-img-top img-fluid"
+                alt="..."
+                style="width: 60%"
+              />
+            </ng-template>
+            <i
+              class="far fa-upload align-self-end me-3"
+              style="cursor: pointer"
+              ngbPopover="upload new photo"
+              [openDelay]="100"
+              [closeDelay]="200"
+              triggers="mouseenter:mouseleave"
+              (click)="openModal(modalUpload, employee)"
+            ></i>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title text-center text-uppercase fw-bold">
+              {{ employee.empName }}
+            </h5>
+            <div
+              *ngIf="employee.team.idTeam != null; then hasTeam; else noTeam"
+            ></div>
+            <ng-template #hasTeam>
+              <p class="card-title teamClass">
+                <img src="{{ employee.team.teamLogo }}" alt="" width="10%" />
+                <span class="mx-2">{{ employee.team.teamName }}</span>
+              </p>
+            </ng-template>
+            <ng-template #noTeam>
+              <p class="card-title teamClass">
+                <img
+                  src="../../../../../assets/icons/racing-car.png"
+                  alt=""
+                  width="10%"
+                />
+                <span class="mx-2">No team</span>
+              </p>
+            </ng-template>
+
+            <p class="card-text text-start">
+              <span class="fw-bold">Role: </span>
+              {{ employee.role.roleName }}
+            </p>
+
+            <p class="card-text text-start">
+              <span class="fw-bold">Birthday: </span>
+              {{ employee.empBirth | date: "dd/MM/yyyy" }}
+            </p>
+            <p class="card-text text-start">
+              <span class="fw-bold">Contact: </span>
+              {{ employee.empContact }}
+            </p>
+            <p class="card-text text-start">
+              <span class="fw-bold">Nationality: </span>
+              {{ employee.empNationality }}
+            </p>
+            <p class="card-text text-start">
+              <span class="fw-bold">Wage: </span>
+              {{ employee.empWage | currency: "BRL" }}
+            </p>
+          </div>
+          <div
+            class="card-footer d-flex justify-content-between align-items-center"
+          >
+            <small class="navbar-nav ml-auto mb-2 mb-md-0">
+              <li class="dropdown nav-item dropup">
+                <a
+                  class="nav-link dropdown-toggle text-muted"
+                  type="button"
+                  id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Opções
+                </a>
+                <ul
+                  class="dropdown-menu dropdown-menu-dark"
+                  aria-labelledby="dropdownMenuButton1"
+                >
+                  <div
+                    *ngIf="
+                      employee.team.idTeam != null;
+                      then editWithTeam;
+                      else editWithoutTeam
+                    "
+                  ></div>
+                  <ng-template #editWithTeam>
+                    <li class="nav-item">
+                      <small
+                        class="dropdown-item"
+                        routerLink="/team/{{
+                          employee.team.idTeam
+                        }}/employee/edit/{{ employee.idEmployee }}"
+                        >Edit</small
+                      >
+                    </li>
+                  </ng-template>
+                  <ng-template #editWithoutTeam>
+                    <li class="nav-item">
+                      <small
+                        class="dropdown-item"
+                        routerLink="/employee/edit/{{ employee.idEmployee }}"
+                        >Edit</small
+                      >
+                    </li>
+                  </ng-template>
+                  <li class="nav-item">
+                    <small
+                      class="dropdown-item"
+                      (click)="openModal(modalDelete, employee)"
+                      >Delete</small
+                    >
+                  </li>
+                </ul>
+              </li>
+            </small>
+            <div
+              *ngIf="
+                employee.team.idTeam != null;
+                then leaveTeam;
+                else chooseTeam
+              "
+            ></div>
+            <ng-template #leaveTeam>
+              <small
+                style="cursor: pointer"
+                class="text-muted"
+                (click)="openModal(modalLeaveTeam, employee)"
+                >Manage Team</small
+              >
+            </ng-template>
+            <ng-template #chooseTeam>
+              <small
+                style="cursor: pointer"
+                class="text-muted"
+                (click)="openModal(modalChooseTeam, employee)"
+                >Manage Team</small
+              >
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #noEmployee>
+    <h2 class="noEmployeeTitle">Nenhum colaborador cadastrado.</h2>
+    <div class="noEmployee">
+      <p>
+        Por favor, verifique a conexão com o servidor ou cadastre um novo
+        colaborador.
+      </p>
+      <div class="d-flex justify-content-between">
+        <button class="btn-outline-dark btn mx-4">Voltar</button
+        ><button class="btn-outline-success btn">Cadastrar</button>
+      </div>
+    </div>
+  </ng-template>
+</div>
+
+<ng-template #modalUpload let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Photo update</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <input
+          type="file"
+          class="form-control"
+          name="team.teamLogo"
+          (change)="uploadFile($event)"
+        />
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-dark"
+      (click)="modal.close('Save click'); sendFile(modalReload)"
+    >
+      Save
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #modalReload let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">{{ titleModal }}</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click'); reload()"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <p>
+      {{ messageModal }}
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-light"
+      (click)="modal.dismiss(); reload()"
+    >
+      Ok
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #modalDelete let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Confirm delete?</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <p>
+      Team leader {{ employeeName }} with id #{{ employeeId }} will be deleted.
+      Continue?
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.dismiss()">
+      No
+    </button>
+    <button
+      type="button"
+      class="btn btn-danger"
+      (click)="modal.dismiss(); deleteEmployee(modalReload)"
+    >
+      Yes
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #modalLeaveTeam let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Leave team?</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <p>
+      {{ employeeName }} with #{{ employeeId }} is related to team
+      {{ employeeTeam }}. This disassociation will leave it without team.
+      Continue?
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.dismiss()">
+      No
+    </button>
+    <button
+      type="button"
+      class="btn btn-danger"
+      (click)="modal.dismiss(); leaveEmployeeWithoutTeam(modalReload)"
+    >
+      Yes
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #modalChooseTeam let-modal>
+  <form action="">
+    <div class="modal-header">
+      <h4 class="modal-title">Choose new team</h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Choose from existing: </label>
+        <div *ngIf="teams.length != 0; else mensagem">
+          <select
+            [(ngModel)]="teamChoose"
+            name="teamChoose"
+            class="form-control"
+          >
+            <option [ngValue]="">None</option>
+            <option *ngFor="let team of teams" [ngValue]="team">
+              {{ team.idTeam }} - {{ team.teamName }}
+            </option>
+          </select>
+        </div>
+        <ng-template #mensagem>
+          <p>Not possible to choose any team. There aren't none available.</p>
+        </ng-template>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" (click)="modal.dismiss()">
+        Cancel
+      </button>
+      <button
+        type="button"
+        class="btn btn-dark"
+        routerLink="/team/add"
+        (click)="modal.dismiss()"
+      >
+        Register new one
+      </button>
+      <button
+        type="button"
+        class="btn btn-success"
+        (click)="modal.dismiss(); addTeam(modalReload); addTeam(modalReload)"
+      >
+        Save
+      </button>
+    </div>
+  </form>
+</ng-template>

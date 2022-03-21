@@ -1,0 +1,70 @@
+.container {
+  min-height: 74.5vh;
+}
+
+.noRoleTitle {
+  text-align: start;
+  margin-top: 4vh;
+}
+
+.noRole {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 65vh;
+}
+
+.title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.roleTitle {
+  text-align: start;
+  margin: 2.5rem 0;
+  padding: 2rem;
+  border-top: 10px groove var(--role-title-border);
+  border-right: 10px groove var(--role-title-border);
+  border-radius: 0 25px;
+}
+
+.fa-plus-circle {
+  cursor: pointer;
+  font-size: 2rem;
+  margin-right: 2rem;
+}
+
+.fa-chevron-circle-left:hover,
+.fa-plus-circle:hover {
+  cursor: pointer;
+  color: var(--icon-hover);
+}
+
+.cardTeamLeader {
+  border-radius: 15px;
+  box-shadow: 10px 11px 24px 1px var(--role-card-shadow);
+  -webkit-box-shadow: 10px 11px 24px 1px var(--role-card-shadow);
+  -moz-box-shadow: 10px 11px 24px 1px var(--role-card-shadow);
+  transition: all 0.2s ease-in-out;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.cardTeamLeader:hover {
+  transform: scale(1.05);
+  border: 2px solid var(--role-card-hover);
+}
+
+.cardTeamLeader h5 {
+  text-align: center;
+  margin: 2rem;
+}
+
+.cardContent {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}

@@ -1,0 +1,236 @@
+<div class="container">
+  <div *ngIf="teamLeaderWithTeam != undefined; else noTeamLeader">
+    <div class="title teamLeaderTitle">
+      <h1 class="">
+        <i
+          class="far fa-chevron-circle-left"
+          (click)="return()"
+          ngbPopover="return"
+          [openDelay]="100"
+          [closeDelay]="200"
+          triggers="mouseenter:mouseleave"
+        ></i>
+        F1 Team Leaders
+      </h1>
+      <span>Here you can find more information about the team leaders.</span>
+      <i
+        class="far fa-plus-circle"
+        routerLink="/teamLeader/add"
+        ngbPopover="new team leader"
+        [openDelay]="100"
+        [closeDelay]="200"
+        triggers="mouseenter:mouseleave"
+      ></i>
+    </div>
+    <div class="row row-cols-1 row-cols-lg-3 row-cols-md-2 g-5">
+      <div class="col" *ngFor="let teamLeader of teamLeaderWithTeam">
+        <div class="card h-100 cardTeamLeader">
+          <h5 class="card-title fw-bolder">{{ teamLeader[1] }}</h5>
+
+          <div class="cardContent row">
+            <div class="col-8 d-flex justify-content-center align-items-end">
+              <img
+                src="{{ teamLeader[2] }}"
+                class="card-img-top img-fluid"
+                alt="..."
+                *ngIf="teamLeader[2] != null; else noPhoto"
+                style="width: 80%"
+              />
+              <ng-template #noPhoto>
+                <img
+                  src="../../../../../assets/img/iconLeader01.png"
+                  class="card-img-top img-fluid"
+                  alt="..."
+                  style="width: 80%"
+                />
+              </ng-template>
+              <i
+                class="far fa-upload align-self-end"
+                ngbPopover="upload new photo"
+                [openDelay]="100"
+                [closeDelay]="200"
+                triggers="mouseenter:mouseleave"
+                (click)="openModal(modalUpload, teamLeader[0], teamLeader[1])"
+              ></i>
+            </div>
+            <div class="card-body col-3">
+              <p class="card-text fw-bold text-start">Team</p>
+              <div *ngIf="teamLeader[4] != null; then team; else noTeam"></div>
+              <ng-template #team>
+                <img src="{{ teamLeader[5] }}" alt="" style="width: 50%" />
+                <p class="card-text">
+                  {{ teamLeader[4] }}
+                </p>
+              </ng-template>
+              <ng-template #noTeam>
+                <img
+                  src="../../../../../assets/icons/racing-car-side.png"
+                  alt=""
+                  style="width: 50%"
+                />
+                <p class="card-text">No team.</p>
+              </ng-template>
+            </div>
+          </div>
+          <div
+            class="card-footer d-flex justify-content-between align-items-center"
+          >
+            <small class="navbar-nav ml-auto mb-2 mb-md-0">
+              <li class="dropdown nav-item dropup">
+                <a
+                  class="nav-link dropdown-toggle text-muted"
+                  type="button"
+                  id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Options
+                </a>
+                <ul
+                  class="dropdown-menu dropdown-menu-dark"
+                  aria-labelledby="dropdownMenuButton1"
+                >
+                  <li class="nav-item">
+                    <small
+                      class="dropdown-item"
+                      routerLink="/teamLeader/{{ teamLeader[0] }}"
+                      >Manage team</small
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <small
+                      class="dropdown-item"
+                      routerLink="/teamLeader/edit/{{ teamLeader[0] }}"
+                      >Edit</small
+                    >
+                  </li>
+                  <!-- <li><hr class="dropdown-divider" /></li> -->
+                  <li class="nav-item">
+                    <small
+                      class="dropdown-item"
+                      (click)="
+                        openModal(modalDelete, teamLeader[0], teamLeader[1])
+                      "
+                      >Delete</small
+                    >
+                  </li>
+                </ul>
+              </li>
+            </small>
+            <small
+              class="text-muted"
+              style="cursor: pointer"
+              routerLink="/teamLeader/{{ teamLeader[0] }}"
+              >See more...</small
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #noTeamLeader>
+    <h2 class="noTeamLeaderTitle">Nenhum Chefe de Equipe cadastrado.</h2>
+    <div class="noTeamLeader">
+      <p>
+        Por favor, verifique a conexão com o servidor ou cadastre um novo Chefe
+        de Equipe.
+      </p>
+      <div class="d-flex justify-content-between">
+        <button class="btn-outline-dark btn mx-4" routerLink="/home">
+          Voltar</button
+        ><button class="btn-outline-success btn" routerLink="/teamLeader/add">
+          Cadastrar
+        </button>
+      </div>
+    </div>
+  </ng-template>
+</div>
+
+<ng-template #modalUpload let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Photo update</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <input
+          type="file"
+          class="form-control"
+          name="team.teamLogo"
+          (change)="uploadFile($event)"
+        />
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-dark"
+      (click)="modal.close('Save click'); sendFile(modalReload)"
+    >
+      Save
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #modalReload let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">{{ titleModal }}</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click'); reload()"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <p>
+      {{ messageModal }}
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-light"
+      (click)="modal.dismiss(); reload()"
+    >
+      Ok
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #modalDelete let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Confirm delete?</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <p>
+      Team leader {{ teamLeaderName }} with id #{{ teamLeaderId }} will be
+      deleted. Continue?
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.dismiss()">
+      No
+    </button>
+    <button
+      type="button"
+      class="btn btn-danger"
+      (click)="modal.dismiss(); deleteTeamLeader(modalReload)"
+    >
+      Yes
+    </button>
+  </div>
+</ng-template>

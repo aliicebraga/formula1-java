@@ -1,0 +1,162 @@
+.container {
+  min-height: 80vh;
+}
+
+.teamTitle {
+  text-align: start;
+  margin: 2.5rem 0;
+  padding: 2rem;
+  border-top: 10px groove var(--team-base);
+  border-right: 10px groove var(--team-base);
+  border-radius: 0 25px;
+}
+
+.actionIcons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.actionIcons i {
+  font-size: 1.5rem;
+}
+
+i {
+  cursor: pointer;
+}
+
+i:hover {
+  color: var(--icon-hover);
+}
+
+.leftCard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+.rigthCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+}
+
+.teamLeaderCard {
+  width: 330px;
+  height: 130px;
+  border: 1px solid none;
+  margin: 3rem;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: var(--team-leader-base);
+  box-shadow: 10px 11px 24px 1px rgba(0, 0, 0, 0.37);
+  -webkit-box-shadow: 10px 11px 24px 1px rgba(0, 0, 0, 0.37);
+  -moz-box-shadow: 10px 11px 24px 1px rgba(0, 0, 0, 0.37);
+  transition: all 0.2s ease-in-out;
+}
+
+.teamLeaderCard:hover {
+  background-color: var(--team-leader-base-hover);
+  transform: scale(1.02);
+}
+
+.teamLeaderCard button {
+  margin-top: 1rem;
+}
+
+.fa-user-times {
+  align-self: flex-end;
+  margin-right: 2rem;
+}
+
+.fa-search-plus,
+.fa-user-times {
+  font-size: 1.2rem;
+}
+
+.employeeCard {
+  width: 330px;
+  height: 130px;
+  border: 1px solid none;
+  margin: 3rem;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: var(--employee-base);
+  box-shadow: 10px 11px 24px 1px rgba(0, 0, 0, 0.37);
+  -webkit-box-shadow: 10px 11px 24px 1px rgba(0, 0, 0, 0.37);
+  -moz-box-shadow: 10px 11px 24px 1px rgba(0, 0, 0, 0.37);
+  transition: all 0.2s ease-in-out;
+}
+
+.employeeCard:hover {
+  background-color: var(--employee-base-hover);
+  transform: scale(1.02);
+}
+
+.employeeCard div {
+  width: 100px;
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.2rem;
+}
+
+.penaltyCard {
+  width: 330px;
+  height: 130px;
+  border: 1px solid none;
+  margin: 3rem;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  box-shadow: 10px 11px 24px 1px rgba(0, 0, 0, 0.37);
+  -webkit-box-shadow: 10px 11px 24px 1px rgba(0, 0, 0, 0.37);
+  -moz-box-shadow: 10px 11px 24px 1px rgba(0, 0, 0, 0.37);
+  transition: all 0.2s ease-in-out;
+  background-color: var(--penalty-base);
+}
+
+.penaltyCard:hover {
+  background-color: var(--penalty-base-hover);
+  transform: scale(1.02);
+}
+
+.penaltyCard div {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+}
+
+.penaltyInfo {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+}
+
+.penaltyInfo i {
+  align-self: baseline;
+  margin-left: 1rem;
+}
+
+h5,
+h6 {
+  font-weight: bold;
+}
+
+.form-group {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+}

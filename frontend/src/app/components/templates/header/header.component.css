@@ -1,0 +1,61 @@
+.navBlack {
+  background-color: var(--header-nav);
+}
+
+.nav-link {
+  color: var(--header-nav-link);
+}
+
+.nav-link:hover {
+  color: var(--header-nav-link-hover);
+}
+
+.navBrandFont {
+  color: var(--header-nav-brand);
+}
+
+.navBrandFont:hover {
+  color: var(--header-nav-brand-hover);
+}
+
+.iconFont {
+  color: var(--header-nav-link);
+  font-size: 20px;
+}
+.iconFontCar {
+  color: var(--header-nav-link);
+  font-size: 14px;
+}
+
+.bgFlag {
+  width: 100vw;
+  height: 2vh;
+  background-color: #e5e5f7;
+  opacity: 0.8;
+  background-image: repeating-linear-gradient(
+      45deg,
+      #474747 25%,
+      transparent 25%,
+      transparent 75%,
+      #474747 75%,
+      #474747
+    ),
+    repeating-linear-gradient(
+      45deg,
+      #474747 25%,
+      #e5e5f7 25%,
+      #e5e5f7 75%,
+      #474747 75%,
+      #474747
+    );
+  background-position: 0 0, 10px 10px;
+  background-size: 19px 19px;
+}
+
+.logo {
+  width: 60px;
+}
+.logoToggler {
+  width: 60px;
+  color: var(--header-nav-brand);
+}

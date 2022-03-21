@@ -1,0 +1,215 @@
+<div class="container">
+  <form
+    #registerForm="ngForm"
+    (ngSubmit)="registerForm.form.valid && onSubmit(modal)"
+    novalidate
+  >
+    <h2 class="text-center">
+      <i
+        class="far fa-chevron-circle-left"
+        (click)="return()"
+        ngbPopover="return"
+        [openDelay]="100"
+        [closeDelay]="200"
+        triggers="mouseenter:mouseleave"
+      ></i>
+      {{ tituloPage }}
+    </h2>
+    <div class="form-group">
+      <label
+        >Team Leader Name
+        <input
+          type="text"
+          class="form-control"
+          name="teamLeader.leaderName"
+          [(ngModel)]="teamLeader.leaderName"
+          #leaderName="ngModel"
+          minlength="4"
+          appOnlyLetters
+          required
+          [class.is-invalid]="
+            (leaderName.touched || leaderName.dirty) &&
+            (leaderName.errors?.['required'] || leaderName.errors?.['minlength']|| leaderName.errors?.['notAllLetters'])
+
+          "
+          [class.is-valid]="leaderName.valid"
+          (blur)="updateProgressBar(this, 20)"
+        />
+      </label>
+      <p class="form-text">Must have at least 4 characters</p>
+    </div>
+
+    <div class="form-group">
+      <label
+        >Date of Entry
+        <input
+          type="date"
+          class="form-control"
+          name="teamLeader.leaderDateOfEntry"
+          [(ngModel)]="teamLeader.leaderDateOfEntry"
+          #leaderDateOfEntry="ngModel"
+          required
+          [class.is-invalid]="
+            (leaderDateOfEntry.touched || leaderDateOfEntry.dirty) &&
+            (leaderDateOfEntry.errors?.['required'] )
+
+          "
+          [class.is-valid]="leaderDateOfEntry.valid"
+        />
+      </label>
+      <p class="form-text">Team leader date of entry is required</p>
+    </div>
+
+    <div class="form-group">
+      <label
+        >Nationality
+        <input
+          type="text"
+          class="form-control"
+          name="teamLeader.leaderNationality"
+          [(ngModel)]="teamLeader.leaderNationality"
+          #leaderNationality="ngModel"
+          appOnlyLetters
+          required
+          minlength="4"
+          [class.is-invalid]="
+            (leaderNationality.touched || leaderNationality.dirty) &&
+            (leaderNationality.errors?.['required'] || leaderNationality.errors?.['minlength'] || leaderNationality.errors?.['notAllLetters'])
+
+          "
+          [class.is-valid]="leaderNationality.valid"
+        />
+      </label>
+      <p class="form-text">Must have at least 4 characters</p>
+    </div>
+
+    <div class="form-group">
+      <label>How many championship won </label>
+
+      <div
+        style="display: block"
+        class="btn-group"
+        role="group"
+        ngbRadioGroup
+        name="teamLeader.leaderChampionshipsWon"
+        [(ngModel)]="teamLeader.leaderChampionshipsWon"
+        #leaderChampionshipsWon="ngModel"
+        required
+        [class.is-invalid]="
+            (leaderChampionshipsWon.touched || leaderChampionshipsWon.dirty) &&
+            (leaderChampionshipsWon.errors?.['required'])
+
+          "
+        [class.is-valid]="leaderChampionshipsWon.valid"
+      >
+        <label ngbButtonLabel class="btn-secondary">
+          <input ngbButton type="radio" class="btn-check" [value]="0" /> 0
+        </label>
+        <label ngbButtonLabel class="btn-secondary">
+          <input ngbButton type="radio" class="btn-check" [value]="1" /> 1
+        </label>
+        <label ngbButtonLabel class="btn-secondary">
+          <input ngbButton type="radio" class="btn-check" [value]="2" /> 2
+        </label>
+        <label ngbButtonLabel class="btn-secondary">
+          <input ngbButton type="radio" class="btn-check" [value]="3" /> 3
+        </label>
+        <label ngbButtonLabel class="btn-secondary">
+          <input ngbButton type="radio" class="btn-check" [value]="4" /> 4
+        </label>
+        <label ngbButtonLabel class="btn-secondary">
+          <input ngbButton type="radio" class="btn-check" [value]="5" /> 5
+        </label>
+        <label ngbButtonLabel class="btn-secondary">
+          <input ngbButton type="radio" class="btn-check" [value]="6" /> 6+
+        </label>
+      </div>
+      <p class="form-text">Team leader championship won is required</p>
+    </div>
+
+    <div class="form-group" *ngIf="idTeamInit == undefined">
+      <label
+        >For which team?
+        <div *ngIf="teams.length != 0; else mensagem">
+          <select
+            [(ngModel)]="idTeamChoose"
+            name="idTeamChoose"
+            class="form-control"
+            #idTeam="ngModel"
+            required
+            [class.is-invalid]="
+            (idTeam.touched || idTeam.dirty) &&
+            (idTeam.errors?.['required'])
+
+          "
+            [class.is-valid]="idTeam.valid"
+            (blur)="updateProgressBar(this, 20)"
+          >
+            <option [ngValue]="">None</option>
+            <option *ngFor="let team of teams" [ngValue]="team.idTeam">
+              {{ team.idTeam }} - {{ team.teamName }}
+            </option>
+          </select>
+          <p class="form-text">Team is required</p>
+        </div>
+        <ng-template #mensagem>
+          <p>
+            Not possible to choose any teams. There aren't none team registered
+            or available.
+          </p>
+        </ng-template>
+      </label>
+    </div>
+
+    <div class="btns">
+      <button class="btn btn-light" type="reset" routerLink="/teamLeaders">
+        Cancel
+      </button>
+      <button
+        class="btn btn-dark"
+        type="submit"
+        [disabled]="clicked"
+        ngbPopover="this button will work only once, after the fields are valid"
+        [openDelay]="100"
+        [closeDelay]="600"
+        triggers="mouseenter:mouseleave"
+      >
+        {{ tituloButton }}
+      </button>
+    </div>
+    <!-- <p>
+      <ngb-progressbar
+        type="secondary"
+        class="mt-2"
+        [value]="valuePB"
+      ></ngb-progressbar>
+    </p> -->
+  </form>
+</div>
+
+<ng-template #modal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">{{ tituloModal }}</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <p>{{ mensagemModal }}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.dismiss()">
+      Ok
+    </button>
+    <!-- <button
+      type="button"
+      class="btn btn-light"
+      (click)="openModal(modal); modal.dismiss()"
+    >
+      Sim
+    </button> -->
+  </div>
+</ng-template>

@@ -1,0 +1,65 @@
+.container {
+  min-height: 72vh;
+  margin-bottom: 3rem;
+}
+
+.noEmployeeTitle {
+  text-align: start;
+  margin-top: 4vh;
+}
+
+.noEmployee {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 65vh;
+}
+
+.title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.fa-plus-circle {
+  cursor: pointer;
+  font-size: 2rem;
+  margin-right: 2rem;
+}
+
+.fa-chevron-circle-left:hover,
+.fa-plus-circle:hover {
+  cursor: pointer;
+  color: var(--icon-hover);
+}
+
+.employeeTitle {
+  text-align: start;
+  margin: 2.5rem 0;
+  padding: 2rem;
+  border-top: 10px groove var(--employee-base);
+  border-right: 10px groove var(--employee-base);
+  border-radius: 0 25px;
+}
+
+.cardEmployee {
+  border-radius: 15px;
+  box-shadow: 27px 16px 37px -20px var(--employee-border);
+  -webkit-box-shadow: 27px 16px 37px -20px var(--employee-border);
+  -moz-box-shadow: 27px 16px 37px -20px var(--employee-border);
+  transition: all 0.2s ease-in-out;
+  background-color: var(--team-back-card);
+}
+
+.cardEmployee:hover {
+  transform: scale(1.02);
+  border: 2px solid var(--employee-border);
+}
+
+.teamClass {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-style: italic;
+}

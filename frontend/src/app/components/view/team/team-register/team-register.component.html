@@ -1,0 +1,141 @@
+<div class="container">
+  <form
+    #registerForm="ngForm"
+    (ngSubmit)="registerForm.form.valid && onSubmit(modal)"
+    novalidate
+  >
+    <h2 class="text-center">
+      <i
+        class="far fa-chevron-circle-left"
+        (click)="return()"
+        ngbPopover="return"
+        [openDelay]="100"
+        [closeDelay]="200"
+        triggers="mouseenter:mouseleave"
+      ></i>
+      {{ tituloPage }}
+    </h2>
+    <div class="form-group">
+      <label
+        >Team Name
+        <input
+          type="text"
+          class="form-control"
+          name="team.teamName"
+          [(ngModel)]="team.teamName"
+          #teamName="ngModel"
+          minlength="4"
+          appOnlyLetters
+          required
+          [class.is-invalid]="
+            (teamName.touched || teamName.dirty) &&
+            (teamName.errors?.['required'] || teamName.errors?.['minlength']|| teamName.errors?.['notAllLetters'])
+
+          "
+          [class.is-valid]="teamName.valid"
+        />
+      </label>
+      <p class="form-text">Must have at least 4 characters</p>
+    </div>
+
+    <div class="form-group">
+      <label
+        >Date of Creation
+        <input
+          type="date"
+          class="form-control"
+          name="team.teamDateOfCreation"
+          [(ngModel)]="team.teamDateOfCreation"
+          #teamDateOfCreation="ngModel"
+          required
+          [class.is-invalid]="
+            (teamDateOfCreation.touched || teamDateOfCreation.dirty) &&
+            (teamDateOfCreation.errors?.['required'] )
+          "
+          [class.is-valid]="teamDateOfCreation.valid"
+        />
+      </label>
+      <p class="form-text">Team date of creation is required</p>
+    </div>
+
+    <div class="form-group">
+      <label
+        >Date of Entry
+        <input
+          type="date"
+          class="form-control"
+          name="team.teamDateOfEntry"
+          [(ngModel)]="team.teamDateOfEntry"
+          #teamDateOfEntry="ngModel"
+          required
+          [class.is-invalid]="
+            (teamDateOfEntry.touched || teamDateOfEntry.dirty) &&
+            (teamDateOfEntry.errors?.['required'] )
+
+          "
+          [class.is-valid]="teamDateOfEntry.valid"
+        />
+      </label>
+      <p class="form-text">Team date of entry is required</p>
+    </div>
+
+    <div class="form-group">
+      <label
+        >Engine Supplier
+        <input
+          type="text"
+          class="form-control"
+          name="team.teamEngineSuplier"
+          [(ngModel)]="team.teamEngineSuplier"
+          #teamEngineSuplier="ngModel"
+          required
+          minlength="6"
+          [class.is-invalid]="
+            (teamEngineSuplier.touched || teamEngineSuplier.dirty) &&
+            (teamEngineSuplier.errors?.['required'] || teamEngineSuplier.errors?.['minlength'])
+
+          "
+          [class.is-valid]="teamEngineSuplier.valid"
+        />
+      </label>
+      <p class="form-text">Team engine suplier is required</p>
+    </div>
+
+    <div class="btns">
+      <button class="btn btn-light" type="reset" routerLink="/teams">
+        Cancel
+      </button>
+      <button
+        class="btn btn-dark"
+        type="submit"
+        [disabled]="clicked"
+        ngbPopover="this button will work only once, after the fields are valid"
+        [openDelay]="100"
+        [closeDelay]="600"
+        triggers="mouseenter:mouseleave"
+      >
+        {{ tituloButton }}
+      </button>
+    </div>
+  </form>
+</div>
+
+<ng-template #modal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">{{ tituloModal }}</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <p>{{ mensagemModal }}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.dismiss()">
+      Ok
+    </button>
+  </div>
+</ng-template>

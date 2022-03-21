@@ -1,0 +1,64 @@
+.container {
+  min-height: 78.7vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+h2 {
+  margin-bottom: 1.5rem;
+  color: var(--form-font-and-border);
+}
+
+.fa-chevron-circle-left:hover,
+.fa-plus-circle:hover {
+  cursor: pointer;
+  color: var(--icon-hover);
+}
+
+form {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  border: 7px inset var(--team-border-form);
+  border-radius: 20px;
+  background-color: var(--team-base);
+  color: var(--form-font-and-border);
+}
+
+.is-invalid {
+  border-color: var(--form-input-invalid);
+  border: 2px;
+}
+
+.is-valid {
+  border-color: var(--form-input-valid);
+}
+
+.form-control {
+  border-color: var(--form-font-and-border);
+  width: 300px;
+  /* max-width: 460px; */
+}
+
+.form-group {
+  margin-bottom: 0.5rem;
+}
+
+.btns {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 0.5rem;
+}
+
+@media screen and (max-width: 400px) {
+  .form-control {
+    width: 250px;
+  }
+}
+
+@media screen and (max-width: 330px) {
+  .form-control {
+    width: 200px;
+  }
+}

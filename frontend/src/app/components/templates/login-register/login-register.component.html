@@ -1,0 +1,139 @@
+<!-- <div class="loginBackground">
+  <section>
+    <div>
+      <mat-form-field
+        appearance="outline"
+        [color]="validColor(email)"
+        style="width: 30vw"
+      >
+        <mat-label>Enter your email</mat-label>
+        <input
+          matInput
+          placeholder="pat@example.com"
+          [formControl]="email"
+          required
+        />
+        <mat-error *ngIf="email.invalid">{{
+          getErrorMessageEmail()
+        }}</mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field
+        appearance="outline"
+        style="width: 30vw"
+        [color]="validColor(password)"
+      >
+        <mat-label>Enter your password</mat-label>
+        <input
+          matInput
+          [type]="hide ? 'password' : 'text'"
+          placeholder="*********"
+          [formControl]="password"
+          required
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="hide = !hide"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide"
+        >
+          <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+        </button>
+        <mat-error *ngIf="password.invalid">{{
+          getErrorMessagePassword()
+        }}</mat-error>
+      </mat-form-field>
+    </div>
+  </section>
+</div> -->
+
+<!-- <div class="form-group">
+      <label
+        >Password
+        <input
+          required
+          minlength="8"
+          appPasswordPattern
+          type="text"
+          class="form-control"
+          name="password"
+          [(ngModel)]="password"
+          #passwordNgModel="ngModel"
+          [class.is-invalid]="(passwordNgModel.touched || passwordNgModel.dirty) && (passwordNgModel.errors?.['required'] || passwordNgModel.errors?.['minlength'] || passwordNgModel.errors?.['invalidPassword'])"
+          [class.is-valid]="passwordNgModel.valid"
+        />
+      </label>
+      <p
+        *ngIf="
+        (passwordNgModel.touched || passwordNgModel.dirty) &&
+        (passwordNgModel.errors?.['required'] || passwordNgModel.errors?.['minlength'])
+        "
+      >
+        Password is required and must have at least 8 characters
+      </p>
+      <p
+        *ngIf="
+      (passwordNgModel.touched || passwordNgModel.dirty) &&
+      passwordNgModel.errors?.['invalidPassword']
+      "
+      >
+        Password is must have a capital letter, a lower case letter and a number
+      </p>
+    </div> -->
+
+<button class="btn btn-outline-primary mb-2 me-2" (click)="openModal(content)">
+  Abrir modal confirmação
+</button>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Confirma cadastro?</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <p>Cadastrar tal tal e tal</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.dismiss()">
+      Não
+    </button>
+    <button
+      type="button"
+      class="btn btn-light"
+      (click)="openModal(sucesso); modal.dismiss()"
+    >
+      Sim
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #sucesso let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Modal title</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <p>Sucesso &hellip;</p>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-light"
+      (click)="modal.dismiss('close click')"
+    >
+      Close
+    </button>
+  </div>
+</ng-template>

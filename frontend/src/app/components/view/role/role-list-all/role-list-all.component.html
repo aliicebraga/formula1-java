@@ -1,0 +1,134 @@
+<div class="container">
+  <div *ngIf="roles.length != 0; else noRole">
+    <div class="title roleTitle">
+      <h1 class="">
+        <i
+          class="far fa-chevron-circle-left"
+          (click)="return()"
+          ngbPopover="return"
+          [openDelay]="100"
+          [closeDelay]="200"
+          triggers="mouseenter:mouseleave"
+        ></i>
+        F1 Roles
+      </h1>
+      <!-- <span
+        >Here you can add new roles to be used when registering a new
+        employee.</span
+      > -->
+      <span>Here you can find more information about the roles.</span>
+      <i
+        class="far fa-plus-circle"
+        routerLink="/role/add"
+        ngbPopover="new role"
+        [openDelay]="100"
+        [closeDelay]="200"
+        triggers="mouseenter:mouseleave"
+      ></i>
+    </div>
+    <div class="row row-cols-1 row-cols-lg-3 row-cols-md-2 g-5">
+      <div class="col" *ngFor="let role of roles">
+        <div class="card h-100 cardTeamLeader">
+          <h5 class="card-title fw-bold">{{ role.roleName }}</h5>
+
+          <div class="cardContent">
+            <div class="card-body">
+              <p class="card-text">
+                <span class="fw-bold">Department: </span
+                >{{ role.roleDepartment }}
+              </p>
+              <p class="card-text">
+                <span class="fw-bold">Assignment: </span
+                >{{ role.roleAssignment }}
+              </p>
+            </div>
+          </div>
+          <div
+            class="card-footer d-flex justify-content-between align-items-center"
+          >
+            <small
+              class="text-muted"
+              style="cursor: pointer"
+              routerLink="/role/edit/{{ role.idRole }}"
+              >Edit</small
+            >
+            <small
+              class="text-muted"
+              style="cursor: pointer"
+              (click)="openModal(modalDelete, role)"
+              >Delete</small
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #noRole>
+    <h2 class="noRoleTitle">Nenhuma equipe cadastrada.</h2>
+    <div class="noRole">
+      <p>
+        Por favor, verifique a conexão com o servidor ou cadastre uma nova
+        equipe.
+      </p>
+      <div class="d-flex justify-content-between">
+        <button class="btn-outline-dark btn mx-4">Voltar</button
+        ><button class="btn-outline-success btn">Cadastrar</button>
+      </div>
+    </div>
+  </ng-template>
+</div>
+
+<!-- ///////////////// modals -->
+
+<ng-template #modalInfo let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">{{ titleModal }}</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click'); reload()"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <p>
+      {{ messageModal }}
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-light"
+      (click)="modal.dismiss(); reload()"
+    >
+      Ok
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #modalDelete let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Confirm delete?</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <p>Role {{ roleName }} with id #{{ roleId }} will be deleted. Continue?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.dismiss()">
+      No
+    </button>
+    <button
+      type="button"
+      class="btn btn-danger"
+      (click)="modal.dismiss(); deleteRole(modalInfo)"
+    >
+      Yes
+    </button>
+  </div>
+</ng-template>

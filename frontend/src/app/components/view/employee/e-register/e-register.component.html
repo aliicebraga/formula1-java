@@ -1,0 +1,241 @@
+<div class="container">
+  <form
+    #registerForm="ngForm"
+    (ngSubmit)="registerForm.form.valid && onSubmit(modal)"
+    novalidate
+  >
+    <h2 class="text-center">
+      <i
+        class="far fa-chevron-circle-left"
+        (click)="return()"
+        ngbPopover="return"
+        [openDelay]="100"
+        [closeDelay]="200"
+        triggers="mouseenter:mouseleave"
+      ></i>
+      {{ tituloPage }}
+    </h2>
+
+    <div class="form-group">
+      <label
+        >Employee name
+        <input
+          type="text"
+          class="form-control"
+          name="employee.empName"
+          [(ngModel)]="employee.empName"
+          #empName="ngModel"
+          minlength="3"
+          appOnlyLetters
+          required
+          [class.is-invalid]="
+            (empName.touched || empName.dirty) &&
+            (empName.errors?.['required'] || empName.errors?.['minlength']|| empName.errors?.['notAllLetters'] )
+
+          "
+          [class.is-valid]="empName.valid"
+          (blur)="updateProgressBar(this, 20)"
+        />
+      </label>
+      <p class="form-text">Must have at least 3 characters</p>
+    </div>
+
+    <div class="form-group">
+      <label
+        >Employee birthday
+        <input
+          type="date"
+          class="form-control"
+          name="employee.empBirth"
+          [(ngModel)]="employee.empBirth"
+          #empBirth="ngModel"
+          required
+          [class.is-invalid]="
+            (empBirth.touched || empBirth.dirty) &&
+            (empBirth.errors?.['required'] )
+          "
+          [class.is-valid]="empBirth.valid"
+        />
+      </label>
+      <p class="form-text">Employee birthday is required</p>
+    </div>
+
+    <div class="form-group">
+      <label
+        >Email contact
+        <input
+          type="email"
+          class="form-control"
+          name="employee.empContact"
+          [(ngModel)]="employee.empContact"
+          #empContact="ngModel"
+          required
+          email
+          minlength="6"
+          [class.is-invalid]="
+            (empContact.touched || empContact.dirty) &&
+            (empContact.errors?.['required'] || empContact.errors?.['minlength'] || empContact.errors?.['email'])
+
+          "
+          [class.is-valid]="empContact.valid"
+        />
+      </label>
+      <p class="form-text">Must be a valid email</p>
+    </div>
+
+    <div class="form-group">
+      <label
+        >Employee nationality
+        <input
+          type="text"
+          class="form-control"
+          name="employee.empNationality"
+          [(ngModel)]="employee.empNationality"
+          #empNationality="ngModel"
+          minlength="4"
+          appOnlyLetters
+          required
+          [class.is-invalid]="
+            (empNationality.touched || empNationality.dirty) &&
+            (empNationality.errors?.['required'] || empNationality.errors?.['minlength']|| empNationality.errors?.['notAllLetters'])
+
+          "
+          [class.is-valid]="empNationality.valid"
+          (blur)="updateProgressBar(this, 20)"
+        />
+      </label>
+      <p class="form-text">Must have at least 4 characters</p>
+    </div>
+
+    <div class="form-group">
+      <label
+        >For which role?
+        <div *ngIf="roles.length != 0; else mensagem">
+          <select
+            [(ngModel)]="employee.role.idRole"
+            name="employee.role.idRole"
+            class="form-control"
+            #idRole="ngModel"
+            required
+            [class.is-invalid]="
+            (idRole.touched || idRole.dirty) &&
+            (idRole.errors?.['required'])
+
+          "
+            [class.is-valid]="idRole.valid"
+            (blur)="updateProgressBar(this, 20)"
+          >
+            <option *ngFor="let role of roles" [ngValue]="role.idRole">
+              {{ role.idRole }} - {{ role.roleName }}
+            </option>
+          </select>
+          <p class="form-text">Employee role is required</p>
+        </div>
+        <ng-template #mensagem>
+          <p>Role is required. Please register a new one to continue.</p>
+        </ng-template>
+      </label>
+    </div>
+
+    <div class="form-group">
+      <label
+        >Employee wage
+        <input
+          type="text"
+          class="form-control"
+          currencyMask
+          [options]="{
+            prefix: 'R$ ',
+            thousands: '.',
+            decimal: ',',
+            align: 'left'
+          }"
+          name="employee.empWage"
+          [(ngModel)]="employee.empWage"
+          #empWage="ngModel"
+          minlength="4"
+          appOnlyNumbers
+          required
+          [class.is-invalid]="
+            (empWage.touched || empWage.dirty) &&
+            (empWage.errors?.['required'] || empWage.errors?.['minlength'] || empWage.errors?.['notAllNumbers'] )
+
+          "
+          [class.is-valid]="empWage.valid"
+          (blur)="updateProgressBar(this, 20)"
+        />
+      </label>
+      <p class="form-text">Employee wage is required</p>
+    </div>
+
+    <div class="form-group" *ngIf="idRoute == undefined">
+      <label
+        >For which team?
+        <div *ngIf="teams.length != 0; else mensagem">
+          <select
+            [(ngModel)]="idTeamChoose"
+            name="idTeamChoose"
+            class="form-control"
+            #idTeam="ngModel"
+            required
+            [class.is-invalid]="
+            (idTeam.touched || idTeam.dirty) &&
+            (idTeam.errors?.['required'])
+
+          "
+            [class.is-valid]="idTeam.valid"
+            (blur)="updateProgressBar(this, 20)"
+          >
+            <option [ngValue]="">None</option>
+            <option *ngFor="let team of teams" [ngValue]="team.idTeam">
+              {{ team.idTeam }} - {{ team.teamName }}
+            </option>
+          </select>
+          <p class="form-text">Team is required</p>
+        </div>
+        <ng-template #mensagem>
+          <p>
+            Not possible to choose any teams. There aren't none team registered.
+          </p>
+        </ng-template>
+      </label>
+    </div>
+
+    <div class="btns">
+      <button class="btn btn-light" type="reset" routerLink="/employees">
+        Cancel
+      </button>
+      <button
+        class="btn btn-dark"
+        type="submit"
+        [disabled]="clicked"
+        ngbPopover="this button will work only once, after the fields are valid"
+        [openDelay]="100"
+        [closeDelay]="600"
+        triggers="mouseenter:mouseleave"
+      >
+        {{ tituloButton }}
+      </button>
+    </div>
+  </form>
+</div>
+
+<ng-template #modal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">{{ tituloModal }}</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <p>{{ mensagemModal }}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.dismiss()">
+      Ok
+    </button>
+  </div>
+</ng-template>

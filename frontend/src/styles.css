@@ -1,0 +1,64 @@
+/* You can add global styles to this file, and also import other style files */
+
+:root {
+  /* home */
+  --home-border-base: #c74e46;
+  /* header */
+  --header-nav: #363636;
+  --header-nav-link: #d6d6d6;
+  --header-nav-link-hover: #ffae18;
+  --header-nav-brand: #c74e36;
+  --header-nav-brand-hover: #f63711;
+  /* footer */
+  --footer-bg: rgb(224, 224, 224);
+  --footer-color: #c74e46;
+  --footer-border: black;
+  --footer-font: black;
+  --footer-font-hover: #c74e46;
+  --footer-font-A-hover: #9e6700;
+  /* team colors */
+  --team-base: #f2cb05;
+  --team-base-hover: #f2cb05b2;
+  --team-border-card: #e0b937;
+  --team-back-card: #36363613;
+  --team-back-card-hover: #d6d6d6;
+  --team-back-image: #ffec7f;
+  --team-border-form: #f29f05;
+  /* team leader colors */
+  --team-leader-base: #fa9213b2;
+  --team-leader-base-hover: #fa9213;
+  --team-leader-title-border: #fa9213;
+  --team-leader-border-hover: #c74e36;
+  --team-leader-form: #fa9213;
+  --team-leader-form-border: #c74e36;
+  /* employee colors */
+  --employee-base: #1dbfff9f;
+  --employee-base-hover: #1dbfff;
+  --employee-border: #209dce;
+  /* role colors */
+  --role-title-border: #1dbfff9f;
+  --role-card-shadow: #209dce;
+  --role-card-hover: #209dce;
+  --role-form: #1dbfff9f;
+  --role-form-border: #209dce;
+  /* penalty colors */
+  --penalty-base: #f725259f;
+  --penalty-base-hover: #f72525e3;
+  --penalty-title-border: #c74e46;
+  --penalty-form: #ff5e5ec0;
+  --penalty-form-border: #c74e46;
+  /* comum colors */
+  --icon-hover: #aaaaaa;
+  --form-font-and-border: black;
+  --form-input-invalid: rgb(141, 39, 39);
+  --form-input-valid: green;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

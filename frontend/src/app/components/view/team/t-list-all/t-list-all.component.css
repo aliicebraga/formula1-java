@@ -1,0 +1,186 @@
+.container {
+  min-height: 77vh;
+}
+
+.noTeamTitle {
+  text-align: start;
+  margin-top: 4vh;
+}
+
+.noTeam {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 65vh;
+}
+
+.title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.teamsTitle {
+  text-align: start;
+  margin: 2.5rem 0;
+  padding: 2rem;
+  border-top: 10px groove var(--team-base);
+  border-right: 10px groove var(--team-base);
+  border-radius: 0 25px;
+}
+
+.fa-plus-circle {
+  cursor: pointer;
+  font-size: 2rem;
+  margin-right: 2rem;
+}
+
+.fa-chevron-circle-left:hover,
+.fa-plus-circle:hover {
+  cursor: pointer;
+  color: var(--icon-hover);
+}
+
+.backgroundLeftCard {
+  background-image: linear-gradient(
+    180deg,
+    #fff 33.33%,
+    var(--team-back-image) 32.33%,
+    var(--team-back-image) 36.89%,
+    #fff 40.89%,
+    #fff 50%,
+    #fff 50%,
+    #fff 83.33%,
+    #fff 83.33%,
+    var(--team-back-image) 88.89%,
+    #fff 88.89%,
+    #fff 100%
+  );
+  background-position: right;
+  background-size: 420px 380px;
+  background-repeat: no-repeat;
+}
+
+.leftCard {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  margin-bottom: 3rem;
+  max-width: 900px;
+  background-color: var(--team-back-card);
+  transition: all 0.3s ease-in-out;
+}
+
+.leftCard:hover {
+  transform: scale(1.05);
+  background-color: var(--team-back-card-hover);
+  border-left: 5px solid var(--team-border-card);
+  border-right: 5px solid var(--team-border-card);
+  border-top: 5px solid var(--team-border-card);
+}
+
+.backgroundRightCard {
+  background-image: linear-gradient(
+    180deg,
+    #fff 12.67%,
+    var(--team-back-image) 12.67%,
+    var(--team-back-image) 15.22%,
+    #fff 20.22%,
+    #fff 50%,
+    #fff 50%,
+    #fff 66.67%,
+    var(--team-back-image) 50.67%,
+    var(--team-back-image) 50.22%,
+    #fff 72.22%,
+    #fff 100%
+  );
+  background-size: 420px 380px;
+  background-repeat: no-repeat;
+}
+
+.rightCard {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  text-align: end;
+  margin-bottom: 3rem;
+  max-width: 900px;
+  background-color: var(--team-back-card);
+  transition: all 0.3s ease-in-out;
+}
+
+.rightCard:hover {
+  transform: scale(1.05);
+  background-color: var(--team-back-card-hover);
+  border-left: 5px solid var(--team-border-card);
+  border-right: 5px solid var(--team-border-card);
+  border-top: 5px solid var(--team-border-card);
+}
+
+.logoLeft {
+  margin-left: 1.5rem;
+}
+
+.logoRight {
+  margin-right: 1.5rem;
+}
+
+.actionIcons {
+  margin: 2rem;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.actionIcons i {
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.fa-upload {
+  align-self: flex-end;
+  margin: 0 1.5rem 1.5rem 1.5rem;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 1400px) {
+  .backgroundLeftCard,
+  .backgroundRightCard {
+    background-size: 240px 380px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .leftCard,
+  .rightCard {
+    max-width: 720px;
+  }
+}
+
+@media screen and (max-width: 990px) {
+  .container {
+    font-size: 90%;
+  }
+
+  .leftCard,
+  .rightCard {
+    max-width: 570px;
+  }
+
+  .backgroundLeftCard,
+  .backgroundRightCard {
+    background-size: 145px 380px;
+  }
+}
+
+@media screen and (max-width: 770px) {
+  .container {
+    font-size: 80%;
+  }
+
+  .backgroundLeftCard,
+  .backgroundRightCard {
+    background-size: 0 0;
+  }
+}

@@ -1,0 +1,85 @@
+.container {
+  min-height: 71.5vh;
+  margin-bottom: 2rem;
+}
+
+.noPenaltyTitle {
+  text-align: start;
+  margin-top: 4vh;
+}
+
+.noPenalty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 65vh;
+}
+
+.title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.penaltyTitle {
+  text-align: start;
+  margin: 2.5rem 0;
+  padding: 2rem;
+  border-top: 10px groove var(--penalty-title-border);
+  border-right: 10px groove var(--penalty-title-border);
+  border-radius: 0 25px;
+}
+
+.fa-plus-circle {
+  cursor: pointer;
+  font-size: 2rem;
+  margin-right: 2rem;
+}
+
+.fa-chevron-circle-left:hover,
+.fa-plus-circle:hover {
+  cursor: pointer;
+  color: var(--icon-hover);
+}
+.actionIcon {
+  cursor: pointer;
+}
+
+.actionIcon:hover {
+  color: var(--icon-hover);
+}
+
+.cardPenalty {
+  border-radius: 15px;
+  box-shadow: 27px 16px 37px -35px var(--penalty-title-border);
+  -webkit-box-shadow: 27px 16px 37px -35px var(--penalty-title-border);
+  -moz-box-shadow: 27px 16px 37px -35px var(--penalty-title-border);
+  transition: all 0.2s ease-in-out;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  background-color: var(--team-back-card);
+  border: none;
+}
+
+.cardPenalty:hover {
+  transform: scale(1.02);
+  border: 2px solid var(--penalty-title-border);
+}
+
+.cardPenalty h5 {
+  text-align: center;
+  margin: 1.2rem 0 0 0;
+}
+
+.cardPenalty h6 {
+  text-align: center;
+  margin: 0.2rem;
+}
+
+.cardContent {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}

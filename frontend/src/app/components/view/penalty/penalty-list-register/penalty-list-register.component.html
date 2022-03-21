@@ -1,0 +1,176 @@
+<div class="container">
+  <form
+    #registerForm="ngForm"
+    (ngSubmit)="registerForm.form.valid && onSubmit(modal)"
+    novalidate
+  >
+    <h2 class="text-center">
+      <i
+        class="far fa-chevron-circle-left"
+        (click)="return()"
+        ngbPopover="return"
+        [openDelay]="100"
+        [closeDelay]="200"
+        triggers="mouseenter:mouseleave"
+      ></i>
+      {{ tituloPage }}
+    </h2>
+
+    <div class="form-group">
+      <label
+        >Penalty Description
+        <input
+          type="text"
+          class="form-control"
+          name="penalty.peDescription"
+          [(ngModel)]="penalty.peDescription"
+          #peDescription="ngModel"
+          minlength="10"
+          required
+          [class.is-invalid]="
+            (peDescription.touched || peDescription.dirty) &&
+            (peDescription.errors?.['required'] || peDescription.errors?.['minlength'])
+
+          "
+          [class.is-valid]="peDescription.valid"
+        />
+      </label>
+      <p class="form-text">Must have at least 10 characters</p>
+    </div>
+
+    <div class="form-group">
+      <label
+        >Penalty due date
+        <input
+          type="date"
+          class="form-control"
+          name="penalty.peDueDate"
+          [(ngModel)]="penalty.peDueDate"
+          #peDueDate="ngModel"
+          required
+          [class.is-invalid]="
+            (peDueDate.touched || peDueDate.dirty) &&
+            (peDueDate.errors?.['required'] )
+          "
+          [class.is-valid]="peDueDate.valid"
+        />
+      </label>
+      <p class="form-text">Penalty due date is required</p>
+    </div>
+
+    <div class="form-group">
+      <label
+        >Penalty value
+        <input
+          type="text"
+          class="form-control"
+          currencyMask
+          [options]="{
+            prefix: 'R$ ',
+            thousands: '.',
+            decimal: ',',
+            align: 'left'
+          }"
+          name="penalty.peValue"
+          [(ngModel)]="penalty.peValue"
+          #peValue="ngModel"
+          minlength="6"
+          appOnlyNumbers
+          required
+          [class.is-invalid]="
+            (peValue.touched || peValue.dirty) &&
+            (peValue.errors?.['required'] || peValue.errors?.['minlength'] || peValue.errors?.['notAllNumbers'])
+
+          "
+          [class.is-valid]="peValue.valid"
+        />
+      </label>
+      <p class="form-text">Penalty value is required</p>
+    </div>
+
+    <div class="form-group">
+      <label
+        >For which team?
+
+        <div *ngIf="teams.length != 0; else mensagem">
+          <select
+            [(ngModel)]="penalty.team.idTeam"
+            name="penalty.team.idTeam"
+            class="form-control"
+            #idTeam="ngModel"
+            required
+            [class.is-invalid]="
+            (idTeam.touched || idTeam.dirty) &&
+            (idTeam.errors?.['required'])
+
+          "
+            [class.is-valid]="idTeam.valid"
+            (blur)="updateProgressBar(this, 20)"
+          >
+            <option *ngFor="let team of teams" [ngValue]="team.idTeam">
+              {{ team.idTeam }} - {{ team.teamName }}
+            </option>
+          </select>
+          <p class="form-text">Team is required</p>
+        </div>
+        <ng-template #mensagem>
+          <p>
+            Not possible to give any penalties. There aren't none team
+            registered.
+          </p>
+        </ng-template>
+      </label>
+    </div>
+
+    <div class="btns">
+      <button class="btn btn-light" type="reset" routerLink="/penalties">
+        Cancel
+      </button>
+      <button
+        class="btn btn-dark"
+        type="submit"
+        [disabled]="clicked"
+        ngbPopover="this button will work only once, after the fields are valid"
+        [openDelay]="100"
+        [closeDelay]="600"
+        triggers="mouseenter:mouseleave"
+      >
+        {{ tituloButton }}
+      </button>
+    </div>
+    <!-- <p>
+      <ngb-progressbar
+        type="secondary"
+        class="mt-2"
+        [value]="valuePB"
+      ></ngb-progressbar>
+    </p> -->
+  </form>
+</div>
+
+<ng-template #modal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">{{ tituloModal }}</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <p>{{ mensagemModal }}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.dismiss()">
+      Ok
+    </button>
+    <!-- <button
+      type="button"
+      class="btn btn-light"
+      (click)="openModal(modal); modal.dismiss()"
+    >
+      Sim
+    </button> -->
+  </div>
+</ng-template>

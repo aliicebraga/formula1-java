@@ -1,0 +1,256 @@
+<div class="container">
+  <div class="title teamLeaderTitle row">
+    <h1 class="col-lg-10 col-md-10 col-sm-9">
+      <i
+        class="far fa-chevron-circle-left"
+        (click)="return()"
+        ngbPopover="return"
+        [openDelay]="100"
+        [closeDelay]="200"
+        triggers="mouseenter:mouseleave"
+      ></i>
+      {{ teamLeader.leaderName }}
+    </h1>
+
+    <div class="actionIcons col-lg-2 col-md-2 col-sm-3">
+      <i
+        class="far fa-edit"
+        routerLink="/teamLeader/edit/{{ teamLeader.idTeamLeader }}"
+        ngbPopover="edit"
+        [openDelay]="100"
+        [closeDelay]="200"
+        triggers="mouseenter:mouseleave"
+      ></i>
+      <i
+        class="far fa-trash"
+        (click)="onlyOpenModal(modalDelete)"
+        ngbPopover="delete"
+        [openDelay]="100"
+        [closeDelay]="200"
+        triggers="mouseenter:mouseleave"
+      ></i>
+    </div>
+  </div>
+
+  <div class="firstCard">
+    <img
+      src="{{ teamLeader.leaderPhoto }}"
+      class="card-img-top img-fluid logoLeft"
+      alt="..."
+      class="imgLeader"
+      *ngIf="teamLeader.leaderPhoto != null; else noPhoto"
+    />
+    <ng-template #noPhoto>
+      <img
+        src="../../../../../assets/img/iconLeader01.png"
+        class="card-img-top img-fluid logoLeft"
+        alt="..."
+        class="imgLeader"
+      />
+    </ng-template>
+    <div>
+      <p class="card-text">
+        <span class="fw-bold">Entry: </span
+        >{{ teamLeader.leaderDateOfEntry | date: "dd/MM/yyyy" }}
+      </p>
+      <p class="card-text">
+        <span class="fw-bold">Championship won: </span
+        >{{ teamLeader.leaderChampionshipsWon }}
+      </p>
+      <p class="card-text">
+        <span class="fw-bold">Nationality: </span
+        >{{ teamLeader.leaderNationality }}
+      </p>
+    </div>
+  </div>
+  <div class="secondCard">
+    <div class="teamCard">
+      <div *ngIf="hasTeam; then showTeamInfo; else showTeamOptions"></div>
+      <ng-template #showTeamInfo>
+        <div class="titleTeam">
+          <h3>Represents Team</h3>
+          <i
+            class="far fa-plus-square showMinWidth"
+            ngbPopover="see more"
+            [openDelay]="100"
+            [closeDelay]="200"
+            triggers="mouseenter:mouseleave"
+            routerLink="/team/{{ team.idTeam }}"
+          ></i>
+          <i
+            class="far fa-user-times showMinWidth"
+            ngbPopover="leave team leader without team"
+            [openDelay]="100"
+            [closeDelay]="200"
+            triggers="mouseenter:mouseleave"
+            (click)="leaveTeamWithoutTeamLeader(modalReload, teamLeader)"
+          ></i>
+          <div class="iconsTeam">
+            <i
+              class="far fa-plus-square"
+              ngbPopover="see more"
+              [openDelay]="100"
+              [closeDelay]="200"
+              triggers="mouseenter:mouseleave"
+              routerLink="/team/{{ team.idTeam }}"
+            ></i>
+            <i
+              class="far fa-user-times"
+              ngbPopover="leave team leader without team"
+              [openDelay]="100"
+              [closeDelay]="200"
+              triggers="mouseenter:mouseleave"
+              (click)="leaveTeamWithoutTeamLeader(modalReload, teamLeader)"
+            ></i>
+          </div>
+        </div>
+        <div class="content">
+          <h5 class="fst-italic">{{ team.teamName }}</h5>
+          <img
+            src="{{ team.teamLogo }}"
+            alt=""
+            class="imgTeam"
+            *ngIf="team.teamLogo != null; else noLogo"
+          />
+          <ng-template #noLogo>
+            <img
+              src="../../../../../assets/icons/racing-car-side.png"
+              alt=""
+              class="imgTeam"
+              *ngIf="team.teamLogo != null; else noLogo"
+            />
+          </ng-template>
+        </div>
+      </ng-template>
+      <ng-template #showTeamOptions>
+        <div class="titleNoTeam">
+          <h3>No Team related</h3>
+        </div>
+        <div class="contentNoTeam">
+          <h5>Please choose from an existing team or register a new one.</h5>
+          <i
+            ngbPopover="choose team"
+            [openDelay]="100"
+            [closeDelay]="200"
+            triggers="mouseenter:mouseleave"
+            class="fal fa-plus-circle mx-3"
+            (click)="onlyOpenModal(modalChooseTeam)"
+          ></i>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>
+
+<!-- modals -->
+<ng-template #modalReload let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">{{ titleModal }}</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click'); reload()"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <p>
+      {{ messageModal }}
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-light"
+      (click)="modal.dismiss(); reload()"
+    >
+      Ok
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #modalDelete let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Confirm delete?</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <p>
+      Team leader {{ teamLeader.leaderName }} with id #{{
+        teamLeader.idTeamLeader
+      }}
+      will be deleted. Continue?
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.dismiss()">
+      No
+    </button>
+    <button
+      type="button"
+      class="btn btn-danger"
+      (click)="modal.dismiss(); deleteTeamLeader(modalReload)"
+    >
+      Yes
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #modalChooseTeam let-modal>
+  <form action="">
+    <div class="modal-header">
+      <h4 class="modal-title">Choose new team</h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Choose from existing: </label>
+        <div *ngIf="teams.length != 0; else mensagem">
+          <select
+            [(ngModel)]="teamChoose"
+            name="teamChoose"
+            class="form-control"
+          >
+            <option [ngValue]="">None</option>
+            <option *ngFor="let team of teams" [ngValue]="team">
+              {{ team.idTeam }} - {{ team.teamName }}
+            </option>
+          </select>
+        </div>
+        <ng-template #mensagem>
+          <p>Not possible to choose any team. There aren't none available.</p>
+        </ng-template>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" (click)="modal.dismiss()">
+        Cancel
+      </button>
+      <button
+        type="button"
+        class="btn btn-dark"
+        routerLink="/team/add"
+        (click)="modal.dismiss()"
+      >
+        Register new one
+      </button>
+      <button
+        type="button"
+        class="btn btn-success"
+        (click)="modal.dismiss(); addTeam(modalReload)"
+      >
+        Save
+      </button>
+    </div>
+  </form>
+</ng-template>

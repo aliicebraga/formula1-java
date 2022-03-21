@@ -1,0 +1,222 @@
+<div class="container">
+  <div *ngIf="penalties.length != 0; else noPenalty">
+    <div class="title penaltyTitle">
+      <h1 class="">
+        <i
+          class="far fa-chevron-circle-left"
+          (click)="return()"
+          ngbPopover="return"
+          [openDelay]="100"
+          [closeDelay]="200"
+          triggers="mouseenter:mouseleave"
+        ></i>
+        F1 Penalties
+      </h1>
+      <span>Here you can find more information about penalties.</span>
+      <i
+        class="far fa-plus-circle"
+        routerLink="/penalty/add"
+        ngbPopover="new penalty"
+        [openDelay]="100"
+        [closeDelay]="200"
+        triggers="mouseenter:mouseleave"
+      ></i>
+    </div>
+    <div class="row row-cols-1 row-cols-lg-3 row-cols-md-2 g-5">
+      <div class="col" *ngFor="let penalty of penalties">
+        <div class="card h-100 cardPenalty">
+          <h5 class="card-title fw-bold">{{ penalty.peDescription }}</h5>
+          <h6 class="fst-italic">{{ penalty.peStatus }}</h6>
+
+          <div class="cardContent">
+            <div class="card-body">
+              <p class="card-text">
+                <span class="fw-bold">Team: </span>{{ penalty.team.teamName }}
+              </p>
+              <p class="card-text">
+                <span class="fw-bold">Due date: </span
+                >{{ penalty.peDueDate | date: "dd/MM/yyyy" }}
+              </p>
+              <p class="card-text">
+                <span class="fw-bold">Value: </span
+                >{{ penalty.peValue | currency: "BRL" }}
+              </p>
+            </div>
+          </div>
+          <div
+            class="card-footer d-flex justify-content-between align-items-center"
+            *ngIf="penalty.peStatus == 'PENDING'"
+          >
+            <small
+              class="text-muted"
+              style="cursor: pointer"
+              routerLink="/penalty/edit/{{ penalty.code }}"
+              >Edit</small
+            >
+            <!-- <small
+              class="text-muted"
+              style="cursor: pointer"
+              (click)="openModal(modalDelete, penalty)"
+              >Delete</small
+            > -->
+            <small
+              class="text-muted"
+              style="cursor: pointer"
+              (click)="openModal(modalPay, penalty)"
+              >Pay</small
+            >
+            <small
+              class="text-muted"
+              style="cursor: pointer"
+              (click)="openModal(modalCancel, penalty)"
+              >Cancel</small
+            >
+          </div>
+          <!-- <ng-template #onlyEdit>
+            <div
+              class="card-footer d-flex justify-content-center align-items-center"
+            >
+              <small
+                class="text-muted"
+                style="cursor: pointer"
+                routerLink="/penalty/edit/{{ penalty.code }}"
+                >Edit</small
+              >
+            </div>
+          </ng-template> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #noPenalty>
+    <h2 class="noPenaltyTitle">Nenhuma equipe cadastrada.</h2>
+    <div class="noPenalty">
+      <p>
+        Por favor, verifique a conexão com o servidor ou cadastre uma nova
+        equipe.
+      </p>
+      <div class="d-flex justify-content-between">
+        <button class="btn-outline-dark btn mx-4">Voltar</button
+        ><button class="btn-outline-success btn">Cadastrar</button>
+      </div>
+    </div>
+  </ng-template>
+</div>
+
+<!-- ///////////////// modals -->
+
+<ng-template #modalInfo let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">{{ titleModal }}</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click'); reload()"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <p>
+      {{ messageModal }}
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-light"
+      (click)="modal.dismiss(); reload()"
+    >
+      Ok
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #modalDelete let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Confirm delete?</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <p>
+      Penalty {{ penaltyName }} with id #{{ penaltyId }} will be deleted.
+      Continue?
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.dismiss()">
+      No
+    </button>
+    <button
+      type="button"
+      class="btn btn-danger"
+      (click)="modal.dismiss(); deletePenalty(modalInfo)"
+    >
+      Yes
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #modalCancel let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Confirm cancellation?</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <p>
+      Penalty {{ penaltyName }} with id #{{ penaltyId }} will be CANCELED.
+      Continue?
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.dismiss()">
+      No
+    </button>
+    <button
+      type="button"
+      class="btn btn-danger"
+      (click)="modal.dismiss(); cancelPenalty(modalInfo)"
+    >
+      Yes
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #modalPay let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Confirm payment?</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <p>
+      Penalty {{ penaltyName }} with id #{{ penaltyId }} will be PAID and set as
+      COMPLETE. Continue?
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.dismiss()">
+      No
+    </button>
+    <button
+      type="button"
+      class="btn btn-danger"
+      (click)="modal.dismiss(); payPenalty(modalInfo)"
+    >
+      Yes
+    </button>
+  </div>
+</ng-template>

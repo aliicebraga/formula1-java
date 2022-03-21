@@ -1,0 +1,261 @@
+<div class="container">
+  <div *ngIf="teams.length != 0; else noTeam">
+    <div class="title teamsTitle">
+      <h1 class="">
+        <i
+          class="far fa-chevron-circle-left"
+          (click)="return()"
+          ngbPopover="return"
+          [openDelay]="100"
+          [closeDelay]="200"
+          triggers="mouseenter:mouseleave"
+        ></i>
+        F1 Teams
+      </h1>
+      <span>Here you can find more information about the teams.</span>
+      <i
+        class="far fa-plus-circle"
+        routerLink="/team/add"
+        ngbPopover="new team"
+        [openDelay]="100"
+        [closeDelay]="200"
+        triggers="mouseenter:mouseleave"
+      ></i>
+    </div>
+    <div *ngFor="let team of teams; index as i">
+      <div
+        class="d-flex justify-content-start backgroundLeftCard"
+        *ngIf="i % 2 == 0; else rightCard"
+      >
+        <div class="card leftCard">
+          <img
+            src="{{ team.teamLogo }}"
+            class="card-img-top img-fluid logoLeft"
+            alt="..."
+            style="width: 20%"
+            *ngIf="team.teamLogo != null; else noLogo"
+          />
+          <ng-template #noLogo>
+            <img
+              src="../../../../../assets/icons/racing-car.png"
+              class="card-img-top img-fluid logoLeft"
+              alt="..."
+              style="width: 20%"
+            />
+          </ng-template>
+          <i
+            class="far fa-upload"
+            ngbPopover="upload new photo"
+            [openDelay]="100"
+            [closeDelay]="200"
+            triggers="mouseenter:mouseleave"
+            (click)="openModal(modalUpload, team)"
+          ></i>
+          <div class="card-body d-flex justify-content-between flex-column">
+            <h5 class="card-title">{{ team.teamName }}</h5>
+            <p class="card-text">
+              <span class="fw-bold">Creation: </span
+              >{{ team.teamDateOfCreation | date: "dd/MM/yyyy" }}
+            </p>
+            <p class="card-text">
+              <span class="fw-bold">Entry: </span
+              >{{ team.teamDateOfEntry | date: "dd/MM/yyyy" }}
+            </p>
+            <p class="card-text">
+              <span class="fw-bold">Engine Supplier: </span
+              >{{ team.teamEngineSuplier }}
+            </p>
+            <!-- <p class="card-text">
+              <span class="text-bold">Main Sponsor: </span
+              >{{ team.teamSponsors }}
+            </p> -->
+            <!-- <p class="card-text">
+            <small class="text-muted">Ver mais...</small>
+            </p> -->
+          </div>
+          <div class="actionIcons">
+            <i
+              class="far fa-plus-square"
+              routerLink="/team/{{ team.idTeam }}"
+            ></i>
+            <i
+              class="far fa-tools"
+              routerLink="/team/edit/{{ team.idTeam }}"
+            ></i>
+            <i class="far fa-trash" (click)="openModal(modalDelete, team)"></i>
+          </div>
+        </div>
+      </div>
+      <ng-template #rightCard>
+        <div class="d-flex justify-content-end backgroundRightCard">
+          <div class="card rightCard">
+            <div class="actionIcons">
+              <i
+                class="far fa-plus-square"
+                routerLink="/team/{{ team.idTeam }}"
+              ></i>
+              <i
+                class="far fa-tools"
+                routerLink="/team/edit/{{ team.idTeam }}"
+              ></i>
+              <i
+                class="far fa-trash"
+                (click)="openModal(modalDelete, team)"
+              ></i>
+            </div>
+            <div class="card-body d-flex justify-content-between flex-column">
+              <h5 class="card-title">{{ team.teamName }}</h5>
+
+              <p class="card-text">
+                <span class="fw-bold">Creation: </span
+                >{{ team.teamDateOfCreation | date: "dd/MM/yyyy" }}
+              </p>
+              <p class="card-text">
+                <span class="fw-bold">Entry: </span
+                >{{ team.teamDateOfEntry | date: "dd/MM/yyyy" }}
+              </p>
+              <p class="card-text">
+                <span class="fw-bold">Engine Supplier: </span
+                >{{ team.teamEngineSuplier }}
+              </p>
+              <!-- <p class="card-text">
+                <span class="text-bold">Main Sponsor: </span
+                >{{ team.teamSponsors }}
+              </p> -->
+              <!-- <p class="card-text">
+                <small class="text-muted">Ver mais...</small>
+              </p> -->
+            </div>
+            <i
+              class="far fa-upload"
+              ngbPopover="upload new photo"
+              [openDelay]="100"
+              [closeDelay]="200"
+              triggers="mouseenter:mouseleave"
+              (click)="openModal(modalUpload, team)"
+            ></i>
+            <img
+              src="../../../../../{{ team.teamLogo }}"
+              class="card-img-top img-fluid logoRight"
+              alt="..."
+              style="width: 20%"
+              *ngIf="team.teamLogo != null; else noLogo"
+            />
+            <ng-template #noLogo>
+              <img
+                src="../../../../../assets/icons/racing-car.png"
+                class="card-img-top img-fluid logoRight"
+                alt="..."
+                style="width: 20%"
+            /></ng-template>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+  <ng-template #noTeam>
+    <h2 class="noTeamTitle">Nenhuma equipe cadastrada.</h2>
+    <div class="noTeam">
+      <p>
+        Por favor, verifique a conexão com o servidor ou cadastre uma nova
+        equipe.
+      </p>
+      <div class="d-flex justify-content-between">
+        <button class="btn-outline-dark btn mx-4">Voltar</button
+        ><button class="btn-outline-success btn">Cadastrar</button>
+      </div>
+    </div>
+  </ng-template>
+</div>
+
+<!-- ///////////////// modals -->
+
+<ng-template #modalUpload let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Logo update</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <input
+          type="file"
+          class="form-control"
+          name="team.teamLogo"
+          (change)="uploadFile($event)"
+        />
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-dark"
+      (click)="modal.close('Save click'); sendFile(modalReload)"
+    >
+      Save
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #modalReload let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">{{ titleModal }}</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click'); reload()"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <p>
+      {{ messageModal }}
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-light"
+      (click)="modal.dismiss(); reload()"
+    >
+      Ok
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #modalDelete let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Confirm delete?</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <p>
+      Team {{ teamName }} with id #{{ teamId }} will be deleted. If there is any
+      team leader, employee or penalty related they will be set free to be
+      picked for other team. Continue?
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.dismiss()">
+      No
+    </button>
+    <button
+      type="button"
+      class="btn btn-danger"
+      (click)="modal.dismiss(); deleteTeam(modalReload)"
+    >
+      Yes
+    </button>
+  </div>
+</ng-template>
